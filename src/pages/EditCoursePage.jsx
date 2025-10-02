@@ -1,3 +1,5 @@
+const API = process.env.REACT_APP_API_URL;
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -23,7 +25,7 @@ const EditCoursePage = () => {
     const fetchCourseData = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`/api/courses/${courseId}`);
+        const response = await fetch(`${API}/api/courses/${courseId}`);
         if (!response.ok) throw new Error('Failed to fetch course data.');
         const data = await response.json();
         
@@ -82,7 +84,7 @@ const EditCoursePage = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch(`/api/courses/${courseId}`, {
+      const response = await fetch(`${API}/api/courses/${courseId}`, {
         method: 'PUT', // Use PUT for updates
         headers: {
           'Content-Type': 'application/json',

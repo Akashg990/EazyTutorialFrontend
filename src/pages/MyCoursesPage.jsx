@@ -1,3 +1,5 @@
+const API = process.env.REACT_APP_API_URL;
+
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom'; // <-- IMPORT useLocation
 import { useAuth } from '../context/AuthContext';
@@ -19,7 +21,7 @@ const MyCoursesPage = () => {
 
       try {
         setLoading(true);
-        const response = await fetch('/api/users/my-courses', {
+        const response = await fetch(`${API}/api/users/my-courses`, {
           headers: { 'Authorization': `Bearer ${user.token}` },
         });
         const data = await response.json();

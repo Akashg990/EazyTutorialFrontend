@@ -1,3 +1,6 @@
+const API = process.env.REACT_APP_API_URL;
+
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -42,14 +45,14 @@ const CourseDetailPage = () => {
     const fetchAllData = async () => {
       try {
         setLoading(true);
-        const courseRes = await fetch(`/api/courses/${id}`);
+        const courseRes = await fetch(`${API}/api/courses/${id}`);
         if (!courseRes.ok) throw new Error('Course not found');
         const courseData = await courseRes.json();
         setCourse(courseData);
 
         // Only check enrollment if the user is logged in AND is not the author
         if (user && courseData.authorId !== user._id) {
-          const enrollRes = await fetch('/api/users/my-courses', {
+          const enrollRes = await fetch(`${API}/api/users/my-courses`, {
             headers: { 'Authorization': `Bearer ${user.token}` }
           });
           if (enrollRes.ok) {
@@ -77,7 +80,7 @@ const CourseDetailPage = () => {
     }
     setEnrolling(true);
     try {
-      const response = await fetch(`/api/courses/${id}/enroll`, {
+      const response = await fetch(`${API}/api/courses/${id}/enroll`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${user.token}` }
       });

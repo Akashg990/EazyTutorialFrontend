@@ -1,3 +1,5 @@
+const API = process.env.REACT_APP_API_URL;
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -90,7 +92,7 @@ const CreateCoursePage = () => {
     }
 
     try {
-      const response = await fetch('/api/courses', {
+      const response = await fetch(`${API}/api/courses`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

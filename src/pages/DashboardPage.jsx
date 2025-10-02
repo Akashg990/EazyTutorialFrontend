@@ -1,3 +1,5 @@
+const API = process.env.REACT_APP_API_URL;
+
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import StatsCard from '../components/StatsCard/StatsCard';
@@ -17,7 +19,7 @@ const DashboardPage = () => {
       if (!user?.token) return;
       try {
         setLoading(true);
-        const response = await fetch('/api/users/stats', {
+        const response = await fetch(`${API}/api/users/stats`, {
           headers: { 'Authorization': `Bearer ${user.token}` },
         });
         const data = await response.json();

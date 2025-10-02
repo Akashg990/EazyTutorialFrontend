@@ -1,3 +1,5 @@
+const API = process.env.REACT_APP_API_URL;
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -12,7 +14,7 @@ const TeacherDashboard = () => {
     if (!user?.token) return;
     try {
       setLoading(true);
-      const response = await fetch('/api/courses/mycourses', {
+      const response = await fetch(`${API}/api/courses/mycourses`, {
         headers: { 'Authorization': `Bearer ${user.token}` },
       });
       const data = await response.json();
@@ -33,7 +35,7 @@ const TeacherDashboard = () => {
   const handleDelete = async (courseId) => {
     if (window.confirm('Are you sure you want to delete this course? This action cannot be undone.')) {
       try {
-        const response = await fetch(`/api/courses/${courseId}`, {
+        const response = await fetch(`${API}/api/courses/${courseId}`, {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${user.token}` },
         });
@@ -51,7 +53,7 @@ const TeacherDashboard = () => {
 
   const handleFeature = async (courseId) => {
     try {
-      const response = await fetch(`/api/courses/${courseId}/feature`, {
+      const response = await fetch(`${API}/api/courses/${courseId}/feature`, {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${user.token}` },
       });

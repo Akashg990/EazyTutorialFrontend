@@ -1,3 +1,6 @@
+const API = process.env.REACT_APP_API_URL;
+
+
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Hero from '../components/Hero/Hero';
@@ -16,8 +19,8 @@ const HomePage = () => {
     const fetchAllCourses = async () => {
       try {
         const url = searchQuery 
-          ? `/api/courses?search=${searchQuery}` 
-          : '/api/courses';
+          ?  `${API}/api/courses?search=${searchQuery}`
+          : `${API}/api/courses`;
         
         const res = await fetch(url);
         if (!res.ok) throw new Error('Failed to fetch courses');
@@ -31,7 +34,7 @@ const HomePage = () => {
 
     const fetchFeaturedCourse = async () => {
       try {
-        const res = await fetch('/api/courses/featured');
+        const res = await fetch(`${API}/api/courses/featured`);
         if (res.ok) {
           const data = await res.json();
           setFeaturedCourse(data);
