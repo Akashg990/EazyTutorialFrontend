@@ -1,0 +1,27 @@
+/* src/components/CourseList/CourseList.css */
+.course-list-section {
+  padding: 60px 20px;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.list-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.view-all-link {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}

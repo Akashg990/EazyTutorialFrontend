@@ -1,0 +1,51 @@
+/* src/components/Hero/Hero.css */
+.hero-section {
+  background-color: #F0F0FF; /* Light purple background */
+  padding: 60px 0;
+}
+
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.hero-content {
+  max-width: 500px;
+}
+
+.hero-title {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.hero-description {
+  font-size: 16px;
+  color: var(--light-gray);
+  margin-bottom: 32px;
+}
+
+.hero-button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.hero-button:hover {
+  background-color: var(--primary-hover);
+}
+
+.hero-image-container {
+  flex-shrink: 0;
+}
+
+.hero-image {
+  max-width: 500px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}

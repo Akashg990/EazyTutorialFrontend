@@ -1,0 +1,19 @@
+.checkout-page {
+  background-color: var(--secondary-color);
+  padding: 40px 0;
+}
+
+.checkout-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 40px;
+  align-items: flex-start;
+  background-color: var(--background-color);
+  padding: 40px;
+  border-radius: var(--border-radius);
+}
+
+.order-summary h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+}

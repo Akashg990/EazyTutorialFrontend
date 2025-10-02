@@ -1,0 +1,21 @@
+.profile-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+  padding-top: 20px;
+  padding-bottom: 80px;
+  align-items: flex-start;
+}
+.profile-main-content h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+.show-all-courses-btn {
+  display: block;
+  margin: 30px auto 0;
+  padding: 12px 24px;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  font-weight: 600;
+  cursor: pointer;
+}

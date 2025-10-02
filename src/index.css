@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #6A5ACD; /* Original Purple */
+  --primary-hover: #5A4AB4;
+  --secondary-color: #F5F5F5;
+  --font-color: #333333;
+  --light-gray: #888888;
+  --border-color: #E0E0E0;
+  --background-color: #FFFFFF; /* Original White Background */
+  --star-color: #FFC107;
+  --bestseller-bg: #E6F7FF;
+  --bestseller-text: #00529B;
+  --off-bg: #FFF0F0;
+  --off-text: #D9534F;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--secondary-color); /* Light Gray background for pages */
+  color: var(--font-color);
+  line-height: 1.6;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--border-radius);
+}

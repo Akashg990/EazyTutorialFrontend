@@ -1,0 +1,64 @@
+.teacher-header {
+  margin-bottom: 40px;
+}
+.teacher-info-main {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.teacher-avatar-large {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.teacher-details h1 {
+  font-size: 28px;
+  margin-bottom: 4px;
+}
+.teacher-details p {
+  color: var(--light-gray);
+  margin-bottom: 8px;
+}
+.teacher-tags {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.tag {
+  background-color: var(--secondary-color);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+}
+.teacher-overview h2 {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+.teacher-overview p {
+  color: var(--light-gray);
+  line-height: 1.7;
+  max-width: 80%;
+  margin-bottom: 32px;
+}
+.teacher-stats {
+  display: flex;
+  gap: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-color);
+}
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+.stat-item span {
+  color: var(--light-gray);
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+.stat-item strong {
+  font-size: 18px;
+  font-weight: 600;
+}

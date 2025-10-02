@@ -1,0 +1,54 @@
+.signup-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--secondary-color);
+  padding: 20px;
+}
+.signup-container {
+  padding: 40px 20px;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+.signup-container h2 {
+  margin-bottom: 24px;
+}
+.signup-btn {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 16px;
+}
+.error-message {
+  color: #D9534F;
+  background-color: #FFF0F0;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  margin-bottom: 16px;
+}
+.form-group {
+  text-align: left;
+  margin-bottom: 16px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.form-group input,
+.form-group select { /* <-- ADDED SELECT STYLING HERE */
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  background-color: white; /* Ensures consistent background */
+}

@@ -1,0 +1,28 @@
+.my-courses-page {
+  background-color: var(--secondary-color);
+  min-height: 80vh;
+  padding: 40px 0;
+}
+
+.my-courses-page h1 {
+  margin-bottom: 32px;
+}
+
+.courses-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.no-courses-message {
+  background-color: white;
+  padding: 40px;
+  text-align: center;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.no-courses-message p {
+  font-size: 18px;
+  color: var(--light-gray);
+}

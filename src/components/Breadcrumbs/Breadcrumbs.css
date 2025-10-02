@@ -1,0 +1,20 @@
+.breadcrumbs {
+  padding: 24px 20px;
+  font-size: 14px;
+  color: var(--light-gray);
+}
+
+.breadcrumb-item {
+  color: var(--light-gray);
+  margin: 0 8px;
+}
+.breadcrumb-item:first-child {
+  margin-left: 0;
+}
+.breadcrumb-item:hover {
+  color: var(--primary-color);
+}
+
+.breadcrumb-separator {
+  color: var(--border-color);
+}

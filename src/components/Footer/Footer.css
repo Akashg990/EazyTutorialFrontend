@@ -1,0 +1,97 @@
+/* src/components/Footer/Footer.css */
+.footer {
+  background-color: var(--secondary-color);
+  padding: 60px 0 20px 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.footer-main {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1.5fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-around;
+  gap: 30px;
+}
+
+.footer-column h4 {
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.footer-column a {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--light-gray);
+}
+.footer-column a:hover {
+  color: var(--primary-color);
+}
+
+.footer-subscribe h4 {
+  margin-bottom: 8px;
+}
+
+.footer-subscribe p {
+  color: var(--light-gray);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.subscribe-form {
+  display: flex;
+}
+
+.subscribe-form input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+  border-right: none;
+}
+
+.subscribe-form button {
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+.subscribe-form button:hover {
+  background-color: var(--primary-hover);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border-color);
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: var(--light-gray);
+}
+
+/* Add these new rules to your Footer.css file */
+.social-links {
+  display: flex;
+  gap: 20px;
+}
+
+.social-links a {
+  color: var(--light-gray);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.social-links a:hover {
+  color: var(--primary-color);
+}

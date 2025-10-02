@@ -1,0 +1,37 @@
+.review-card {
+  display: flex;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.review-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.review-content {
+  flex-grow: 1;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.review-name {
+  font-weight: 600;
+}
+
+.review-meta {
+  font-size: 14px;
+  color: var(--light-gray);
+}
+
+.review-text {
+  font-size: 15px;
+  line-height: 1.7;
+}

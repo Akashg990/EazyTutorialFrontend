@@ -1,0 +1,60 @@
+.course-progress-sidebar {
+  min-width: 300px;
+}
+.progress-card {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 20px;
+}
+.progress-header {
+  margin-bottom: 24px;
+}
+.progress-header span {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: block;
+}
+.progress-bar-container {
+  height: 8px;
+  background-color: var(--secondary-color);
+  border-radius: 4px;
+}
+.progress-bar-fill {
+  height: 100%;
+  background-color: var(--primary-color);
+  border-radius: 4px;
+}
+.progress-card h4 {
+  margin-bottom: 16px;
+}
+.lesson-list {
+  list-style: none;
+}
+.lesson-list li {
+  padding: 12px 0;
+  border-top: 1px solid var(--border-color);
+  color: var(--font-color);
+  cursor: pointer;
+}
+.lesson-list li.completed {
+  color: var(--light-gray);
+}
+.lesson-check {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--secondary-color);
+  border: 1px solid var(--border-color);
+  text-align: center;
+  line-height: 16px;
+  font-size: 12px;
+  color: transparent;
+  margin-right: 8px;
+}
+.lesson-list li.completed .lesson-check {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}

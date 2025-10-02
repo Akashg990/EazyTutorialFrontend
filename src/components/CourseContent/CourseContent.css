@@ -1,0 +1,57 @@
+.course-content-section {
+  padding: 40px 20px 80px 20px;
+}
+
+.tabs {
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 30px;
+}
+
+.tabs button {
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--light-gray);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px; /* Overlaps container border */
+}
+
+.tabs button.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+.tab-pane h3 {
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+.tab-pane p {
+  font-size: 16px;
+  color: var(--light-gray);
+  line-height: 1.8;
+}
+
+.benefits-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  font-size: 16px;
+}
+
+.show-all-btn {
+  display: block;
+  margin: 30px auto 0;
+  padding: 12px 24px;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  font-weight: 600;
+}
+
+.related-courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+}

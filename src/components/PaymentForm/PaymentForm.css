@@ -1,0 +1,84 @@
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.payment-card {
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 24px;
+}
+
+.payment-card h4 {
+  margin-bottom: 16px;
+  font-size: 18px;
+}
+
+.payment-method-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--secondary-color);
+  border: 1px solid var(--border-color);
+  padding: 16px;
+  border-radius: var(--border-radius);
+}
+
+.payment-method-box a {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.voucher-input-group {
+  display: flex;
+}
+
+.voucher-input-group input {
+  flex-grow: 1;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-right: none;
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+}
+
+.voucher-input-group button {
+  padding: 12px 24px;
+  background-color: var(--secondary-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  font-weight: 600;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  color: var(--light-gray);
+}
+
+.summary-row span:last-child {
+  font-weight: 600;
+  color: var(--font-color);
+}
+
+.summary-card hr {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 16px 0;
+}
+
+.total-row {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.btn-proceed {
+  width: 100%;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 20px;
+}

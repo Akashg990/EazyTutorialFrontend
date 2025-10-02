@@ -1,0 +1,134 @@
+.header {
+  background-color: var(--background-color); /* <-- CHANGED from #FFFFFF */
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  /* The shadow might not be needed if the color is the same as the body */
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); */
+}
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-image {
+  height: 32px;
+  width: auto;
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: 700;
+  color: #D946EF; /* New Pink/Magenta color */
+}
+
+/* ... */
+
+.nav-link {
+  color: #D946EF; /* New Pink/Magenta color */
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+  color: #a33faf; /* A darker shade for hover */
+}
+
+
+.header-auth {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn {
+  padding: 8px 20px;
+  font-weight: 600;
+  border-radius: var(--border-radius);
+  transition: all 0.2s ease-in-out;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-secondary:hover {
+  background-color: #F0F0FF;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.notification-icon {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.profile-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* --- Responsive Styles --- */
+@media (max-width: 768px) {
+  .header-nav {
+    display: none; /* Hide the main navigation on mobile */
+  }
+
+  .header-auth .btn, 
+  .header-auth .notification-icon {
+    display: none; /* Hide buttons and icons on mobile to save space */
+  }
+
+  .logo-text {
+    display: none; /* Optionally hide logo text on very small screens */
+  }
+}
+/* Add this to your Header.css file */
+.token-balance {
+  font-weight: 600;
+  color: var(--font-color);
+  background-color: #f0f0f0;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+}

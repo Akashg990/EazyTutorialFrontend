@@ -1,0 +1,27 @@
+.stats-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 24px;
+}
+
+.stats-card h4 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+.stat-item:last-child {
+  border-bottom: none;
+}
+.stat-item span {
+  color: var(--light-gray);
+}
+.stat-item strong {
+  font-size: 18px;
+}

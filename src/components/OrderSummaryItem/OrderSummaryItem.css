@@ -1,0 +1,32 @@
+.order-summary-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.item-image {
+  width: 100px;
+  height: 70px;
+  border-radius: var(--border-radius);
+  object-fit: cover;
+}
+
+.item-details {
+  flex-grow: 1;
+}
+
+.item-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.item-author {
+  font-size: 14px;
+  color: var(--light-gray);
+}
+
+.item-price {
+  font-size: 18px;
+  font-weight: 700;
+}

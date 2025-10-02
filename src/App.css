@@ -1,0 +1,11 @@
+.main-content {
+  padding-top: 80px; /* Adjust this value to match your header's height */
+  padding-bottom: 60px; /* For the bottom nav bar on mobile */
+}
+
+/* On mobile, add space for the bottom nav bar */
+@media (max-width: 768px) {
+  .main-content {
+    padding-bottom: 60px;
+  }
+}
