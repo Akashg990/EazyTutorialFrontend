@@ -1,6 +1,6 @@
-const API = process.env.REACT_APP_API_URL;
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
+
+const API = process.env.REACT_APP_API_URL; // Make sure this is defined in your .env
 
 const AuthContext = createContext(null);
 
@@ -22,9 +22,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, [user]);
 
-  const updateUser = (newUserData) => {
-    setUser(newUserData);
-  };
+  const updateUser = (newUserData) => setUser(newUserData);
 
   const login = async (email, password) => {
     try {
@@ -34,18 +32,11 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
-      if (response.ok) {
-        setUser(data);
-      } else {
-        throw new Error(data.message || 'Failed to log in');
-      }
+      if (!response.ok) throw new Error(data.message || 'Failed to log in');
+      setUser(data);
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const logout = () => {
-    setUser(null);
   };
 
   const signup = async (name, email, password, role) => {
@@ -56,25 +47,22 @@ export const AuthProvider = ({ children }) => {
         body: JSON.stringify({ name, email, password, role }),
       });
       const data = await response.json();
-      if (response.ok) {
-        setUser(data);
-      } else {
-        throw new Error(data.message || 'Failed to sign up');
-      }
+      if (!response.ok) throw new Error(data.message || 'Failed to sign up');
+      setUser(data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const isAuthenticated = !!user;
+  const logout = () => setUser(null);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login, logout, signup, updateUser }}>
+    <AuthContext.Provider
+      value={{ user, updateUser, login, signup, logout, isAuthenticated: !!user }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+export const useAuth = () => useContext(AuthContext);

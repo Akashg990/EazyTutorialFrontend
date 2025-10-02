@@ -1,11 +1,10 @@
-const API = process.env.REACT_APP_API_URL;
-
-
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Hero from '../components/Hero/Hero';
 import CourseList from '../components/CourseList/CourseList';
 import Searchbar from '../components/Searchbar/Searchbar';
+
+const API = process.env.REACT_APP_API_URL; // Must match your .env variable
 
 const HomePage = () => {
   const [courses, setCourses] = useState([]);
@@ -19,9 +18,9 @@ const HomePage = () => {
     const fetchAllCourses = async () => {
       try {
         const url = searchQuery 
-          ?  `${API}/api/courses?search=${searchQuery}`
+          ? `${API}/api/courses?search=${searchQuery}`
           : `${API}/api/courses`;
-        
+
         const res = await fetch(url);
         if (!res.ok) throw new Error('Failed to fetch courses');
         const data = await res.json();
@@ -39,7 +38,7 @@ const HomePage = () => {
           const data = await res.json();
           setFeaturedCourse(data);
         } else {
-          setFeaturedCourse(null); // Clear if no featured course is found
+          setFeaturedCourse(null);
         }
       } catch (err) {
         console.error(err);
@@ -60,15 +59,13 @@ const HomePage = () => {
     loadData();
   }, [searchQuery, location]);
 
-  const handleSearch = (query) => {
-    setSearchQuery(query);
-  };
-  
+  const handleSearch = (query) => setSearchQuery(query);
+
   return (
     <main>
       <Searchbar onSearch={handleSearch} />
       <Hero featuredCourse={featuredCourse} />
-      
+
       {loading ? (
         <div className="container" style={{ textAlign: 'center', padding: '40px 20px' }}>Loading...</div>
       ) : error ? (

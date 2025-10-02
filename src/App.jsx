@@ -1,4 +1,4 @@
-const API = process.env.REACT_APP_API_URL;
+// const API = process.env.REACT_APP_API_URL;
 
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
