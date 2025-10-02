@@ -1,0 +1,7 @@
+
+Fixes applied:
+- VITE_API_URL added to .env
+- Runtime shim in src/main.jsx to populate window.process.env.REACT_APP_API_URL
+- Added src/config.js exporting API
+
+Zip contains only essential frontend files (no node_modules).
