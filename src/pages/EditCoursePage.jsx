@@ -1,35 +1,33 @@
-const API = process.env.REACT_APP_API_URL;
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import './CreateCoursePage.css'; // We are re-using the same styles
+import './CreateCoursePage.css'; // Re-using the same styles
+
+const API = process.env.REACT_APP_API_URL || '';
 
 const EditCoursePage = () => {
   const { id: courseId } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  // State for the form fields
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState('');
   const [sections, setSections] = useState([]);
-  
+
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
-  // Fetch the existing course data when the component loads
+  // Fetch existing course data
   useEffect(() => {
-    const fetchCourseData = async () => {
+    const fetchCourse = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${API}/api/courses/${courseId}`);
-        if (!response.ok) throw new Error('Failed to fetch course data.');
-        const data = await response.json();
-        
-        // Populate the form with the fetched data
+        const res = await fetch(`${API}/api/courses/${courseId}`);
+        if (!res.ok) throw new Error('Failed to fetch course data.');
+        const data = await res.json();
+
         setTitle(data.title);
         setCategory(data.category);
         setPrice(data.price);
@@ -41,27 +39,33 @@ const EditCoursePage = () => {
         setLoading(false);
       }
     };
-    fetchCourseData();
+    fetchCourse();
   }, [courseId]);
-  
-  // --- Handlers for Dynamic Sections ---
+
+  // --- Section Handlers ---
   const handleSectionChange = (index, event) => {
-    const newSections = sections.map((section, i) => i === index ? { ...section, [event.target.name]: event.target.value } : section);
+    const newSections = sections.map((sec, i) =>
+      i === index ? { ...sec, [event.target.name]: event.target.value } : sec
+    );
     setSections(newSections);
   };
   const addSection = () => {
     setSections([...sections, { sectionId: `section-${Date.now()}`, title: '', description: '', videoUrl: '' }]);
   };
-  const removeSection = (index) => {
-    setSections(sections.filter((_, i) => i !== index));
-  };
-  
-  // --- Reusable Cloudinary Upload Widget Handler ---
+  const removeSection = (index) => setSections(sections.filter((_, i) => i !== index));
+
+  // --- Cloudinary Upload Widget ---
   const openUploadWidget = (callback) => {
-    const cloudName = 'YOUR_CLOUD_NAME';
-    const uploadPreset = 'YOUR_UPLOAD_PRESET';
-    
-    const widget = window.cloudinary.createUploadWidget({ cloudName, uploadPreset },
+    const cloudName = 'YOUR_CLOUD_NAME'; // Replace with your Cloud Name
+    const uploadPreset = 'YOUR_UPLOAD_PRESET'; // Replace with your Upload Preset
+
+    if (!cloudName || !uploadPreset) {
+      setError('Please configure Cloudinary credentials first.');
+      return;
+    }
+
+    const widget = window.cloudinary.createUploadWidget(
+      { cloudName, uploadPreset },
       (error, result) => {
         if (!error && result && result.event === 'success') {
           callback(result.info.secure_url);
@@ -70,7 +74,7 @@ const EditCoursePage = () => {
     );
     widget.open();
   };
-  
+
   const handleSectionVideoUpload = (index) => {
     openUploadWidget((url) => {
       const newSections = [...sections];
@@ -79,22 +83,24 @@ const EditCoursePage = () => {
     });
   };
 
+  // --- Submit Handler ---
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+
     try {
-      const response = await fetch(`${API}/api/courses/${courseId}`, {
-        method: 'PUT', // Use PUT for updates
+      const res = await fetch(`${API}/api/courses/${courseId}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${user.token}`,
+          'Authorization': `Bearer ${user.token}`
         },
-        body: JSON.stringify({ title, category, price: Number(price), image, sections }),
+        body: JSON.stringify({ title, category, price: Number(price), image, sections })
       });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message || 'Failed to update course');
-      navigate('/dashboard'); // Redirect to dashboard on success
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Failed to update course');
+      navigate('/dashboard');
     } catch (err) {
       setError(err.message);
     } finally {
@@ -110,7 +116,7 @@ const EditCoursePage = () => {
       <div className="form-container">
         <h1>Edit Your Course</h1>
         <form onSubmit={handleSubmit}>
-          {/* Main Course Details */}
+          {/* Course Details */}
           <div className="form-group">
             <label htmlFor="title">Course Title</label>
             <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} required />
@@ -133,7 +139,7 @@ const EditCoursePage = () => {
 
           <hr className="form-divider" />
 
-          {/* Dynamic Sections */}
+          {/* Sections */}
           <h2>Course Sections</h2>
           {sections.map((section, index) => (
             <div key={index} className="section-form-group">
@@ -141,7 +147,7 @@ const EditCoursePage = () => {
               <input type="text" name="title" placeholder="Section Title" value={section.title} onChange={(e) => handleSectionChange(index, e)} required />
               <textarea name="description" placeholder="Section Description" value={section.description} onChange={(e) => handleSectionChange(index, e)} required />
               <button type="button" className="upload-btn" onClick={() => handleSectionVideoUpload(index)}>Upload Section Video</button>
-              {section.videoUrl && <p className="upload-success-msg">Video is uploaded.</p>}
+              {section.videoUrl && <p className="upload-success-msg">Video uploaded successfully!</p>}
               <button type="button" className="remove-lesson-btn" onClick={() => removeSection(index)}>Remove Section</button>
             </div>
           ))}

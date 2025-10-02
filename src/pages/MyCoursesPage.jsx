@@ -1,16 +1,17 @@
-const API = process.env.REACT_APP_API_URL;
-
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom'; // <-- IMPORT useLocation
+import { useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import InProgressCourseCard from '../components/InProgressCourseCard/InProgressCourseCard';
 import './MyCoursesPage.css';
 
 const MyCoursesPage = () => {
   const { user } = useAuth();
-  const location = useLocation(); // <-- INITIALIZE the hook
+  const location = useLocation();
   const [enrolledCourses, setEnrolledCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  const API = process.env.REACT_APP_API_URL; // Ensure your .env variable is set correctly
 
   useEffect(() => {
     const fetchEnrolledCourses = async () => {
@@ -21,25 +22,38 @@ const MyCoursesPage = () => {
 
       try {
         setLoading(true);
+        setError('');
+
         const response = await fetch(`${API}/api/users/my-courses`, {
-          headers: { 'Authorization': `Bearer ${user.token}` },
+          headers: {
+            'Authorization': `Bearer ${user.token}`,
+          },
         });
+
         const data = await response.json();
-        if (response.ok) {
-          setEnrolledCourses(data);
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Failed to fetch enrolled courses');
         }
-      } catch (error) {
-        console.error("Failed to fetch enrolled courses", error);
+
+        setEnrolledCourses(data);
+      } catch (err) {
+        console.error('Failed to fetch enrolled courses', err);
+        setError(err.message);
       } finally {
         setLoading(false);
       }
     };
 
     fetchEnrolledCourses();
-  }, [user, location]); // <-- ADD location to the dependency array
+  }, [user, location, API]);
 
   if (loading) {
-    return <div className="container" style={{ padding: '40px 20px' }}>Loading your courses...</div>;
+    return <div className="container" style={{ padding: '40px 20px', textAlign: 'center' }}>Loading your courses...</div>;
+  }
+
+  if (error) {
+    return <div className="container" style={{ padding: '40px 20px', textAlign: 'center', color: 'red' }}>Error: {error}</div>;
   }
 
   return (
@@ -50,17 +64,16 @@ const MyCoursesPage = () => {
           <div className="courses-list">
             {enrolledCourses.map(enrollment => {
               if (!enrollment.course) return null;
-              
-              // Use enrollment.course.sections here
-              const totalSections = enrollment.course.sections ? enrollment.course.sections.length : 0;
+
+              const totalSections = enrollment.course.sections?.length || 0;
               const progress = totalSections > 0 
                 ? (enrollment.completedSections.length / totalSections) * 100 
                 : 0;
-              
+
               return (
-                <InProgressCourseCard 
-                  key={enrollment.course._id} 
-                  course={enrollment.course} 
+                <InProgressCourseCard
+                  key={enrollment.course._id}
+                  course={enrollment.course}
                   progress={progress}
                 />
               );

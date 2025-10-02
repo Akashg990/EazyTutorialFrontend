@@ -3,13 +3,17 @@ import { useAuth } from '../../context/AuthContext';
 import CommentSection from '../CommentSection/CommentSection';
 import './CoursePlayerLayout.css';
 
+const API = process.env.REACT_APP_API_URL; // <-- Correct API base URL
+
 const CoursePlayerLayout = ({ course, enrollment, onSectionComplete, courseAuthorId }) => {
   const { user } = useAuth();
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
 
   const handleMarkAsComplete = async (sectionId) => {
+    if (!user?.token) return;
+
     try {
-      const response = await fetch('/api/users/my-courses/progress', {
+      const response = await fetch(`${API}/api/users/my-courses/progress`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -24,10 +28,10 @@ const CoursePlayerLayout = ({ course, enrollment, onSectionComplete, courseAutho
         console.error("Failed to mark section as complete");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error marking section as complete:", error);
     }
   };
-  
+
   const activeSection = course.sections[activeSectionIndex];
   const completedCount = enrollment.completedSections.length;
   const totalSections = course.sections.length;
@@ -52,14 +56,13 @@ const CoursePlayerLayout = ({ course, enrollment, onSectionComplete, courseAutho
           <CommentSection courseId={course._id} courseAuthorId={courseAuthorId} />
         </div>
       </div>
+
       <aside className="player-sidebar">
         <div className="lesson-list-card">
           <h3 className="course-title-sidebar">{course.title}</h3>
           <div className="lesson-progress">
             <span>{completedCount}/{totalSections} Completed</span>
-            <div 
-              className="progress-bar-container"
-            >
+            <div className="progress-bar-container">
               <div 
                 className="progress-bar-fill" 
                 style={{ width: `${progressPercentage}%` }}
@@ -70,6 +73,7 @@ const CoursePlayerLayout = ({ course, enrollment, onSectionComplete, courseAutho
             {course.sections.map((section, index) => {
               const isCompleted = enrollment.completedSections.includes(section.sectionId);
               const isActive = index === activeSectionIndex;
+
               return (
                 <li 
                   key={section.sectionId} 

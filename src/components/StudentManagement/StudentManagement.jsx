@@ -2,24 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import './StudentManagement.css';
 
+const API = process.env.REACT_APP_API_URL; // <-- Added API base URL
+
 const StudentManagement = ({ courseId }) => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
 
   useEffect(() => {
-    fetchStudents();
-  }, [courseId]);
+    if (courseId) fetchStudents();
+  }, [courseId, user]);
 
   const fetchStudents = async () => {
+    if (!user?.token) return;
+
     try {
       setLoading(true);
-      const response = await fetch(`/api/courses/${courseId}/students`, {
+      const response = await fetch(`${API}/api/courses/${courseId}/students`, {
         headers: { 'Authorization': `Bearer ${user.token}` },
       });
       const data = await response.json();
       if (response.ok) {
         setStudents(data);
+      } else {
+        console.error(data.message || "Failed to fetch students");
       }
     } catch (error) {
       console.error("Failed to fetch students", error);
@@ -29,16 +35,19 @@ const StudentManagement = ({ courseId }) => {
   };
 
   const handleRemoveStudent = async (studentId) => {
+    if (!user?.token) return;
+
     if (window.confirm('Are you sure you want to remove this student from the course?')) {
       try {
-        const response = await fetch(`/api/courses/${courseId}/students/${studentId}`, {
+        const response = await fetch(`${API}/api/courses/${courseId}/students/${studentId}`, {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${user.token}` },
         });
         if (response.ok) {
           fetchStudents(); // Refresh the list
         } else {
-          alert('Failed to remove student.');
+          const data = await response.json();
+          alert(data.message || 'Failed to remove student.');
         }
       } catch (error) {
         console.error('Failed to remove student', error);

@@ -1,9 +1,9 @@
-const API = process.env.REACT_APP_API_URL;
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './CreateCoursePage.css';
+
+const API = process.env.REACT_APP_API_URL || '';
 
 const CreateCoursePage = () => {
   const [title, setTitle] = useState('');
@@ -11,9 +11,7 @@ const CreateCoursePage = () => {
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState('');
-  const [sections, setSections] = useState([
-    { sectionId: `section-1`, title: '', description: '', videoUrl: '' }
-  ]);
+  const [sections, setSections] = useState([{ sectionId: `section-1`, title: '', description: '', videoUrl: '' }]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -21,48 +19,31 @@ const CreateCoursePage = () => {
   const { user } = useAuth();
 
   const handleSectionChange = (index, event) => {
-    const newSections = sections.map((section, i) => {
-      if (index === i) {
-        return { ...section, [event.target.name]: event.target.value };
-      }
-      return section;
-    });
+    const newSections = sections.map((section, i) =>
+      i === index ? { ...section, [event.target.name]: event.target.value } : section
+    );
     setSections(newSections);
   };
 
   const addSection = () => {
-    setSections([
-      ...sections, 
-      { sectionId: `section-${sections.length + 1}`, title: '', description: '', videoUrl: '' }
-    ]);
+    setSections([...sections, { sectionId: `section-${Date.now()}`, title: '', description: '', videoUrl: '' }]);
   };
 
   const removeSection = (index) => {
-    const newSections = sections.filter((_, i) => i !== index);
-    setSections(newSections);
+    setSections(sections.filter((_, i) => i !== index));
   };
-  
-  const openUploadWidget = (callback) => {
-    // =================================================================
-    // ==> ATTENTION: YOU MUST EDIT THESE TWO LINES <==
-    //
-    // Replace 'YOUR_CLOUD_NAME' with your actual Cloudinary Cloud Name.
-    // Replace 'YOUR_UPLOAD_PRESET' with the Upload Preset name you created.
-    //
-    // Example:
-    // const cloudName = 'dkpndytv';
-    // const uploadPreset = 'my_course_preset';
-    //
-    const cloudName = 'dkjndytjv';
-    const uploadPreset = 'my_course_preset';
-    // =================================================================
 
-    if (cloudName === 'YOUR_CLOUD_NAME' || uploadPreset === 'YOUR_UPLOAD_PRESET') {
+  const openUploadWidget = (callback) => {
+    const cloudName = 'YOUR_CLOUD_NAME'; // Replace with your Cloudinary Cloud Name
+    const uploadPreset = 'YOUR_UPLOAD_PRESET'; // Replace with your Upload Preset
+
+    if (!cloudName || !uploadPreset) {
       setError('Please configure Cloudinary credentials first.');
       return;
     }
 
-    const widget = window.cloudinary.createUploadWidget({ cloudName, uploadPreset },
+    const widget = window.cloudinary.createUploadWidget(
+      { cloudName, uploadPreset },
       (error, result) => {
         if (!error && result && result.event === 'success') {
           callback(result.info.secure_url);
@@ -71,7 +52,7 @@ const CreateCoursePage = () => {
     );
     widget.open();
   };
-  
+
   const handleSectionVideoUpload = (index) => {
     openUploadWidget((url) => {
       const newSections = [...sections];
@@ -82,8 +63,8 @@ const CreateCoursePage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError('');
+    setLoading(true);
 
     if (!image) {
       setError('Please upload a course image.');
@@ -96,9 +77,9 @@ const CreateCoursePage = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${user.token}`,
+          'Authorization': `Bearer ${user.token}`
         },
-        body: JSON.stringify({ title, description, category, price: Number(price), image, sections }),
+        body: JSON.stringify({ title, description, category, price: Number(price), image, sections })
       });
 
       const data = await response.json();
@@ -116,7 +97,6 @@ const CreateCoursePage = () => {
       <div className="form-container">
         <h1>Create a New Course</h1>
         <form onSubmit={handleSubmit}>
-          {/* Main Course Details */}
           <div className="form-group">
             <label htmlFor="title">Course Title</label>
             <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} required />
@@ -143,31 +123,20 @@ const CreateCoursePage = () => {
 
           <hr className="form-divider" />
 
-          {/* Dynamic Sections */}
           <h2>Course Sections</h2>
           {sections.map((section, index) => (
             <div key={index} className="section-form-group">
               <h4>Section {index + 1}</h4>
-              <input
-                type="text" name="title" placeholder="Section Title"
-                value={section.title} onChange={(e) => handleSectionChange(index, e)} required
-              />
-              <textarea
-                name="description" placeholder="Section Description"
-                value={section.description} onChange={(e) => handleSectionChange(index, e)} required
-              />
+              <input type="text" name="title" placeholder="Section Title" value={section.title} onChange={(e) => handleSectionChange(index, e)} required />
+              <textarea name="description" placeholder="Section Description" value={section.description} onChange={(e) => handleSectionChange(index, e)} required />
               <button type="button" className="upload-btn" onClick={() => handleSectionVideoUpload(index)}>
                 Upload Section Video
               </button>
               {section.videoUrl && <p className="upload-success-msg">Video uploaded successfully!</p>}
-              <button type="button" className="remove-lesson-btn" onClick={() => removeSection(index)}>
-                Remove Section
-              </button>
+              <button type="button" className="remove-lesson-btn" onClick={() => removeSection(index)}>Remove Section</button>
             </div>
           ))}
-          <button type="button" className="add-lesson-btn" onClick={addSection}>
-            + Add Another Section
-          </button>
+          <button type="button" className="add-lesson-btn" onClick={addSection}>+ Add Another Section</button>
 
           <hr className="form-divider" />
 
