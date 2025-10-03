@@ -9,7 +9,7 @@ export default defineConfig({
     proxy: {
       // Any request starting with '/api' will be forwarded to the backend
       '/api': {
-        target: 'http://localhost:5000', // Your backend server URL
+        target: 'https://eazytutorialbackend.onrender.com/', // Your backend server URL
         changeOrigin: true,
       },
     },
